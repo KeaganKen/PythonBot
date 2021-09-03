@@ -117,6 +117,9 @@ async def unban(ctx, user: typing.Union[discord.Member, discord.User]):
     embedunban = discord.Embed(description=f'{user}, has been unbanned!', color=0x2AD7B6)
     await channel.send(embed=embedunban)
 
-
+@client.command()
+async def rulesandstuff(ctx):
+    embedrule = discord.Embed(description='**Rules**\n\n1. No Doxxing,\n\n 2. Excessive Toxicity,\n\n 3. No being a dickhead, \n\n4. Spamming, \n\n5. Sending any sorted malicious software, \n\n6. Harassment of other users, \n\n7. Being in violation of discord’s TOS. ', color=0x2AD7B6)
+    msg1 = await ctx.send(embed=embedrule)
 
 client.run('')
