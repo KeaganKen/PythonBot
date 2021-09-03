@@ -1,19 +1,30 @@
+from types import coroutine
 from discord import Intents
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord
 import random
 import typing
-
+from itertools import cycle
 
 intents = Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix = '.', intents=intents, help_command=None)
+status = cycle(['Learing how to kill humans', 'Humans have been killed', 'Creating more Robots to take over'])
+
+
 
 
 @client.event 
 async def on_ready():
     print('Bot is Ready!')
+    change_status.start()
     
+    
+@tasks.loop(seconds=30)
+async def change_status():
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game(next(status)))
+
+
 
 @client.event
 async def on_member_join(member):
@@ -26,6 +37,13 @@ async def on_member_remove(member):
 @client.event
 async def on_user_update(before, after):
     print(f'{before} has updated his account information!')
+
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('Please pass in all required arguments.')
+
 
 
 
@@ -121,5 +139,9 @@ async def unban(ctx, user: typing.Union[discord.Member, discord.User]):
 async def rulesandstuff(ctx):
     embedrule = discord.Embed(description='**Rules**\n\n1. No Doxxing,\n\n 2. Excessive Toxicity,\n\n 3. No being a dickhead, \n\n4. Spamming, \n\n5. Sending any sorted malicious software, \n\n6. Harassment of other users, \n\n7. Being in violation of discord’s TOS. ', color=0x2AD7B6)
     msg1 = await ctx.send(embed=embedrule)
+
+
+
+
 
 client.run('')
