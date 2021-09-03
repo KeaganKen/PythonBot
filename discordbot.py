@@ -109,4 +109,13 @@ async def help(ctx):
 
 
 
-client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.9PCnKq7NoRlAn4pZGLOQat6yRJk')
+
+@client.command()
+async def banned(ctx, response, message, user:discord.User):       
+    try:
+        await user.ban()
+    except discord.HttpException(response, message):
+        if response.status == 400:
+            await ctx.send("This user is already banned")
+
+client.run('TOKEN')
