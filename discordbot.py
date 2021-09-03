@@ -87,7 +87,7 @@ async def kick(ctx, member: discord.Member):
 
 
 @client.command()
-async def ban(ctx, fetch_ban, user: typing.Union[discord.Member, discord.User], reason: str = None):
+async def ban(ctx, user: typing.Union[discord.Member, discord.User], reason: str = None):
     if user == None or user == ctx.message.author:
         embedcant = discord.Embed(description=f'{user}, You cannot ban yourself.', color=0x2AD7B6)
         await ctx.send(embed=embedcant)
@@ -97,7 +97,10 @@ async def ban(ctx, fetch_ban, user: typing.Union[discord.Member, discord.User], 
         embedban = discord.Embed(description=f'{user}, has been BANNED from the server! by', color=0x2AD7B6)
         channel = client.get_channel(883085625727778846)
         await channel.send(embed=embedban)
-        await ctx.guild.ban(user) 
+        await ctx.guild.ban(user)
+    return 
+
+
 
 
 
@@ -107,15 +110,13 @@ async def help(ctx):
     embedVar = discord.Embed(description='**Commands Help!**\n\n**➤Prefix(.)**\n**➤All the commands within this bot include**\n\n➤.help\n➤.Ping\n➤.clear\n➤.addrole\n➤.kick\n➤.ban ', color=0x2AD7B6)
     msg1 = await ctx.send(embed=embedVar)
 
-
-
-
 @client.command()
-async def banned(ctx, response, message, user:discord.User):       
-    try:
-        await user.ban()
-    except discord.HttpException(response, message):
-        if response.status == 400:
-            await ctx.send("This user is already banned")
+async def unban(ctx, user: typing.Union[discord.Member, discord.User]):
+    await ctx.guild.unban(user)
+    channel = client.get_channel(883086682595942400)
+    embedunban = discord.Embed(description=f'{user}, has been unbanned!', color=0x2AD7B6)
+    await channel.send(embed=embedunban)
 
-client.run('TOKEN')
+
+
+client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.9PCnKq7NoRlAn4pZGLOQat6yRJk')
