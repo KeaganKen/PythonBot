@@ -98,25 +98,6 @@ async def ban(ctx, fetch_ban, user: typing.Union[discord.Member, discord.User], 
         channel = client.get_channel(883085625727778846)
         await channel.send(embed=embedban)
         await ctx.guild.ban(user) 
-    
-
-
-
-
-
-
-@client.command()
-async def unban(ctx, user: discord.User):
-    await ctx.guild.unban(user)
-    print(f'{user} has been unbanned from the server')
-    channel = client.get_channel(883086682595942400)
-    embedunban = discord.Embed(description=f'{user}, has been unbanned from the server!', color=0x2AD7B6)
-    msg1 = await channel.send(embed=embedunban)
-    if user.ban == False:
-        ctx.send("User is not banned")
-    return
-
-
 
 
 
