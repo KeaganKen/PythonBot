@@ -35,6 +35,14 @@ async def on_member_update(before, after):
         print(f'{before.mention} has updated his account name from {before.display_name}, to, {after.display_name}')
     
 
+@client.command()
+async def addrole(ctx, member: discord.Member, role: discord.Role, reason=None, atomic=True):
+    await member.add_roles(role)
+    embedrole = discord.Embed(description=f'Added {role}, to {member}', color=0x2AD7B6)
+    await ctx.send(embed=embedrole)
+    
+
+
 
 @client.command()
 async def ping(ctx):
@@ -79,7 +87,7 @@ async def kick(ctx, member: discord.Member):
 
 
 @client.command()
-async def ban(ctx, user: typing.Union[discord.Member, discord.User], reason: str = None):
+async def ban(ctx, fetch_ban, user: typing.Union[discord.Member, discord.User], reason: str = None):
     if user == None or user == ctx.message.author:
         embedcant = discord.Embed(description=f'{user}, You cannot ban yourself.', color=0x2AD7B6)
         await ctx.send(embed=embedcant)
@@ -90,10 +98,7 @@ async def ban(ctx, user: typing.Union[discord.Member, discord.User], reason: str
         channel = client.get_channel(883085625727778846)
         await channel.send(embed=embedban)
         await ctx.guild.ban(user) 
-        
     
-
-
 
 
 
@@ -118,25 +123,9 @@ async def unban(ctx, user: discord.User):
 
 @client.command()
 async def help(ctx):
-    embedVar = discord.Embed(description='**Commands Help!**\n\n➤The prefix for this bot is a peroid (.)\n➤All the commands within this bot include\n➤.help\n➤.Ping which will show you the ping the bot is on\n ', color=0x2AD7B6)
+    embedVar = discord.Embed(description='**Commands Help!**\n\n**➤Prefix(.)**\n**➤All the commands within this bot include**\n\n➤.help\n➤.Ping\n➤.clear\n➤.addrole\n➤.kick\n➤.ban ', color=0x2AD7B6)
     msg1 = await ctx.send(embed=embedVar)
 
-@client.command()
-async def is_banned(ctx, user_id : int, user: discord.user):
-    user = client.get_user(user_id)
-    try:
-        await ctx.guild.fetch_ban(user)
-    except discord.NotFound:
-        await user.send('You are not in the ban list')
-        return
-    await ctx.send(f'{user.name} is in the ban list')
 
-@client.command()
-async def banned(ctx, response, message, user:discord.User):       
-    try:
-        await user.ban()
-    except discord.HttpException(response, message):
-        if response.status == 400:
-            await ctx.send("This user is already banned")
 
 client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.9PCnKq7NoRlAn4pZGLOQat6yRJk')
