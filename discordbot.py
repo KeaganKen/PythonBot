@@ -119,4 +119,4 @@ async def unban(ctx, user: typing.Union[discord.Member, discord.User]):
 
 
 
-client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.9PCnKq7NoRlAn4pZGLOQat6yRJk')
+client.run('')
