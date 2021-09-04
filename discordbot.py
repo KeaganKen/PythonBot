@@ -94,8 +94,18 @@ async def _8Ball(ctx, *, question):
 
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
+
+def is_it_me(ctx):
+    return ctx.author.id == 840918164316618772
+
+
+@client.command()
+@commands.check(is_it_me)
+async def example(ctx):
+    await ctx.send(f'Hi im {ctx.author}')
 
 
 @client.command()
@@ -135,6 +145,7 @@ async def unban(ctx, user: typing.Union[discord.Member, discord.User]):
     embedunban = discord.Embed(description=f'{user}, has been unbanned!', color=0x2AD7B6)
     await channel.send(embed=embedunban)
 
+
 @client.command()
 async def rulesandstuff(ctx):
     embedrule = discord.Embed(description='**Rules**\n\n1. No Doxxing,\n\n 2. Excessive Toxicity,\n\n 3. No being a dickhead, \n\n4. Spamming, \n\n5. Sending any sorted malicious software, \n\n6. Harassment of other users, \n\n7. Being in violation of discord’s TOS. ', color=0x2AD7B6)
@@ -144,4 +155,4 @@ async def rulesandstuff(ctx):
 
 
 
-client.run('')
+client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.jQJvHhsqUR6wHYXkyyxF-16adaQ')
