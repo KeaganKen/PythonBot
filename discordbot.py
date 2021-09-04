@@ -24,7 +24,32 @@ async def on_ready():
 async def change_status():
     await client.change_presence(status=discord.Status.idle, activity=discord.Game(next(status)))
 
+words = (['grabify',
+             'cutt.ly',  
+             'shorte.st',
+              'adf.ly',
+              'bc.vc',
+              'soo.gd',
+              'ouo.io',
+              'zzb.bz',
+              'adfoc.us',
+              'goo.gl'
+])
 
+@client.event
+async def on_message(message ):
+    link = message.content
+    if any(word in link for word in words):
+        await message.delete()
+        await message.channel.send(f'Send that again or I will ban you cuh')
+    await client.process_commands(message)
+
+
+@client.event
+async def on_raw_message_edit(before, after):
+    print(f'{before}, {after}')
+    
+    
 
 @client.event
 async def on_member_join(member):
@@ -94,18 +119,10 @@ async def _8Ball(ctx, *, question):
 
 
 @client.command()
-@commands.has_permissions(manage_messages=True)
-async def clear(ctx, amount=5):
+async def clear(ctx, amount: int):
     await ctx.channel.purge(limit=amount)
 
-def is_it_me(ctx):
-    return ctx.author.id == 840918164316618772
 
-
-@client.command()
-@commands.check(is_it_me)
-async def example(ctx):
-    await ctx.send(f'Hi im {ctx.author}')
 
 
 @client.command()
@@ -127,8 +144,6 @@ async def ban(ctx, user: typing.Union[discord.Member, discord.User], reason: str
         await channel.send(embed=embedban)
         await ctx.guild.ban(user)
     return 
-
-
 
 
 
@@ -155,4 +170,4 @@ async def rulesandstuff(ctx):
 
 
 
-client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.jQJvHhsqUR6wHYXkyyxF-16adaQ')
+client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.iTKAoeecuuQGilwUnK5JnLbPzP8')
