@@ -41,7 +41,7 @@ async def on_message(message ):
     link = message.content
     if any(word in link for word in words):
         await message.delete()
-        await message.channel.send(f'Send that again or I will ban you cuh')
+        await message.channel.send(f'Dont send that again or I will ban you cuh')
     await client.process_commands(message)
 
 
