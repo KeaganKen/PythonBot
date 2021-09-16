@@ -170,4 +170,4 @@ async def rulesandstuff(ctx):
 
 
 
-client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.iTKAoeecuuQGilwUnK5JnLbPzP8')
+client.run('ODgyNjUwOTM1OTE3MTU0Mzc0.YS-evQ.IemBYyuXNB30p7l6ZBBa7y_uq2c')
